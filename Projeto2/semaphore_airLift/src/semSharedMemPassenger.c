@@ -146,6 +146,8 @@ static void waitInQueue (unsigned int passengerId)
     }
 
     /* insert your code here */
+    // sh->fSt.st.passengerStat=WAITING_FOR_BOARDING;
+    // saveState(nFic,&sh->fSt);
 
     if (semUp (semgid, sh->mutex) == -1)                                                      /* exit critical region */
     { perror ("error on the up operation for semaphore access (PG)");
