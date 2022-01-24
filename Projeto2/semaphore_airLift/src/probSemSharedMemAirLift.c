@@ -140,7 +140,7 @@ int main (int argc, char *argv[])
         }
         sprintf(num[0],"%d",p);
         sprintf(nFicErr+8,"%02d",p); 
-        if (pidPG[p] == 0)
+        if (pidPG[p] == 0) 
             if (execl (PASSENGER, PASSENGER, num[0], nFic, num[1],nFicErr, NULL) < 0) { 
                 perror ("error on the generation of the passenger process");
                 exit (EXIT_FAILURE);
