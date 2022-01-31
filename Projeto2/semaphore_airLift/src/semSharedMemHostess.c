@@ -141,7 +141,7 @@ int main (int argc, char *argv[])
 
 static void waitForNextFlight ()       
 {
-    if (semDown (semgid, sh->mutex) == -1)  {                                                  /* enter critical region */
+    if (semDown (semgid, sh->mutex) == -1)  {                                   /* enter critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
@@ -150,8 +150,8 @@ static void waitForNextFlight ()
     sh->fSt.st.hostessStat = WAIT_FOR_FLIGHT;
     saveState(nFic,&sh->fSt);
     
-    if (semUp (semgid, sh->mutex) == -1)                                                   /* exit critical region */
-    { perror ("error on the down operation for semaphore access (HT)");
+    if (semUp (semgid, sh->mutex) == -1) {                                      /* exit critical region */
+        perror ("error on the down operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
 
@@ -171,8 +171,8 @@ static void waitForNextFlight ()
 
 static void waitForPassenger ()    
 {
-    if (semDown (semgid, sh->mutex) == -1)                                                      /* enter critical region */
-    { perror ("error on the up operation for semaphore access (HT)");
+    if (semDown (semgid, sh->mutex) == -1) {                                /* enter critical region */
+        perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
 
@@ -180,8 +180,8 @@ static void waitForPassenger ()
     sh->fSt.st.hostessStat = WAIT_FOR_PASSENGER;
     saveState(nFic, &sh->fSt);
 
-    if (semUp (semgid, sh->mutex) == -1) {                                                  /* exit critical region */
-     perror ("error on the down operation for semaphore access (HT)");
+    if (semUp (semgid, sh->mutex) == -1) {                                  /* exit critical region */
+        perror ("error on the down operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
 
@@ -190,7 +190,6 @@ static void waitForPassenger ()
         perror ("error on the down operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
-    
 }
 
 /**
@@ -216,7 +215,7 @@ static bool checkPassport()
         exit (EXIT_FAILURE);
     }
     
-    if (semDown (semgid, sh->mutex) == -1) {                                                     /* enter critical region */
+    if (semDown (semgid, sh->mutex) == -1) {                                    /* enter critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
@@ -225,7 +224,7 @@ static bool checkPassport()
     sh->fSt.st.hostessStat = CHECK_PASSPORT;
     saveState(nFic, &sh->fSt);
 
-    if (semUp (semgid, sh->mutex) == -1) {                                                 /* exit critical region */
+    if (semUp (semgid, sh->mutex) == -1) {                                      /* exit critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
@@ -236,19 +235,17 @@ static bool checkPassport()
         exit (EXIT_FAILURE);
     }
 
-    if (semDown (semgid, sh->mutex) == -1)  {                                                 /* enter critical region */
+    if (semDown (semgid, sh->mutex) == -1)  {                                   /* enter critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
 
     /* insert your code here */
     savePassengerChecked(nFic, &sh->fSt);
-
     sh->fSt.nPassInQueue--;
     sh->fSt.nPassInFlight++;
     sh->fSt.totalPassBoarded++;
     saveState(nFic, &sh->fSt);
-    
     if (nPassengersInFlight() == MAXFC || (nPassengersInFlight() >= MINFC && nPassengersInQueue() == 0) || sh->fSt.totalPassBoarded == N) {
         last = true;
     }
@@ -258,13 +255,10 @@ static bool checkPassport()
         saveState(nFic, &sh->fSt);
     }
 
-    if (semUp (semgid, sh->mutex) == -1) {                                                     /* exit critical region */
+    if (semUp (semgid, sh->mutex) == -1) {                                      /* exit critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
-
-    /* insert your code here */
-
     return last;
 }
 
@@ -289,7 +283,7 @@ static int nPassengersInQueue()
  */
 void  signalReadyToFlight()     
 {
-    if (semDown (semgid, sh->mutex) == -1) {                                                /* enter critical region */
+    if (semDown (semgid, sh->mutex) == -1) {                                /* enter critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
@@ -303,7 +297,7 @@ void  signalReadyToFlight()
     if (sh->fSt.totalPassBoarded == N)
         sh->fSt.finished = true;
 
-    if (semUp (semgid, sh->mutex) == -1) {                                                     /* exit critical region */
+    if (semUp (semgid, sh->mutex) == -1) {                                  /* exit critical region */
         perror ("error on the up operation for semaphore access (HT)");
         exit (EXIT_FAILURE);
     }
