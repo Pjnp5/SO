@@ -177,7 +177,6 @@ static void waitInQueue (unsigned int passengerId)
 
     sh->fSt.st.passengerStat[passengerId] = IN_FLIGHT;
     saveState(nFic, &sh->fSt);
-    savePassengerChecked(nFic, &sh->fSt);
 
     if (semUp (semgid, sh->mutex) == -1) {                                      /* exit critical region */
         perror ("error on the down operation for semaphore access (PG)");

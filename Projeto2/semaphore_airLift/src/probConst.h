@@ -14,7 +14,7 @@
 /* Generic parameters */
 
 /** \brief number of passengers */
-#define  N        30 
+#define  N        21 
 
 /** \brief min flight capacity */
 #define  MINFC     5 
